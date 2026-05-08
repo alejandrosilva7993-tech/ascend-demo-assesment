@@ -128,7 +128,7 @@ body>*{flex-shrink:0}
 .card .cb{display:flex;flex-direction:column}
 
 /* ROW 1 KPI */
-.kg{display:grid;grid-template-columns:220px 1fr 1fr 1fr;gap:14px;align-items:stretch}
+.kg{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch}
 
 /* Gauge */
 .gauge-inner{display:flex;flex-direction:column;align-items:center;padding:18px 12px 14px;height:100%;justify-content:space-between}
@@ -188,6 +188,26 @@ body>*{flex-shrink:0}
 .gdiv{height:1px;background:var(--s100);margin:2px 0}
 .gaxis{display:flex;margin-left:100px;margin-top:7px;font-family:var(--fm);font-size:9px;color:var(--s300)}
 .gaxis span{flex:1}
+
+/* Gantt en lazyRow1: ocupar alto y ancho útil de la card (alinea con hermana Scope) */
+#lazyRow1 > .card:first-child{min-height:0}
+#lazyRow1 > .card:first-child .cb{
+  flex:1;min-height:0;padding:14px 14px 16px}
+#lazyRow1 > .card:first-child .g-legend{
+  flex-shrink:0;margin-bottom:12px;padding-bottom:10px}
+#lazyRow1 > .card:first-child .grows{
+  flex:1 1 auto;min-height:0;display:flex;flex-direction:column;gap:10px}
+#lazyRow1 > .card:first-child .grow{
+  flex:1 1 0;min-height:28px;align-items:stretch;gap:10px}
+#lazyRow1 > .card:first-child .glabel,
+#lazyRow1 > .card:first-child .gwks{align-self:center}
+#lazyRow1 > .card:first-child .gtrack{
+  flex:1 1 auto;min-width:0;height:auto;min-height:30px;align-self:stretch}
+#lazyRow1 > .card:first-child .gseg{
+  top:5px;bottom:5px;height:auto;min-height:18px}
+#lazyRow1 > .card:first-child .gdiv{flex-shrink:0;margin:4px 0}
+#lazyRow1 > .card:first-child .gaxis{
+  flex-shrink:0;margin-top:auto;margin-left:100px;margin-right:58px}
 
 /* Scope */
 .scope-body{padding:14px}
@@ -304,7 +324,16 @@ body>*{flex-shrink:0}
 .pgb:hover:not(.on){border-color:var(--blue-400);color:var(--blue-600)}
 
 /* ROW 4 */
-.bg4{display:grid;grid-template-columns:1fr 285px;gap:14px;align-items:stretch}
+.bg4{display:grid;grid-template-columns:1fr 300px;gap:14px;align-items:stretch}
+.bg4 > .card{min-width:0}
+/* Scroll horizontal SOLO en la zona de tabla, nunca en el card completo */
+.pt-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.pt{min-width:780px}
+/* Columna Ask AI fija al hacer scroll horizontal */
+.pt th:last-child,.pt td:last-child{position:sticky;right:0;z-index:2;box-shadow:-3px 0 6px rgba(0,0,0,0.07)}
+.pt th:last-child{background:var(--s50)}
+.pt td:last-child{background:var(--s0)}
+.pt tr:hover td:last-child{background:var(--blue-50)}
 .ann-body{padding:14px 16px;display:flex;flex-direction:column;gap:9px;flex:1;align-content:flex-start}
 .ann{padding:11px 13px;border-radius:var(--r8);border:1px solid var(--s200);border-left-width:3px;transition:box-shadow .15s}
 .ann:hover{box-shadow:var(--sh2)}
@@ -486,11 +515,6 @@ body>*{flex-shrink:0}
 /* snap badge in nav */
 .snap-badge { background: var(--gn50) !important; border-color: rgba(42,125,79,.25) !important; color: #2a7d4f !important; }
 .sdot { background: #3d9660 !important; }
-
-/* HITL box: amber, muted */
-.ibar.hitl, div[style*="background:var(--am50)"] {
-  background: #fffbf0 !important;
-}
 
 /* ── Override PrimeNG built-in stepper line ── */
 .p-steps .p-steps-item::before,
@@ -728,7 +752,6 @@ body>*{flex-shrink:0}
                  align-items: center; padding: 14px 20px; gap: 20px; }
   .g-score-row { margin-top: 0; text-align: left; }
   .g2  { grid-template-columns: 1fr; }
-  .bg4 { grid-template-columns: 1fr; }
   .main { padding: 14px 14px; }
 }
 
@@ -736,6 +759,10 @@ body>*{flex-shrink:0}
 @media (max-width: 750px) {
   .kg{grid-template-columns:1fr}
   .g2{grid-template-columns:1fr}
+}
+
+/* ── bg4 colapsa solo a ancho muy pequeño ── */
+@media (max-width: 720px) {
   .bg4{grid-template-columns:1fr}
 }
 
@@ -751,15 +778,16 @@ body>*{flex-shrink:0}
   .p-steps-sep   { min-width: 10px; }
   .kg { grid-template-columns: 1fr; }
   .kg > .card:first-child { grid-column: 1; }
-  .pt-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .pt      { min-width: 560px; }
   .main { padding: 12px 10px; gap: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .g2 .card, .bg4 .card { min-width: 0; }
   .gauge-inner { flex-direction: column; align-items: center; padding: 16px 12px 12px; }
   .g-score-row { text-align: center; }
   .grow  { flex-wrap: wrap; }
+  #lazyRow1 > .card:first-child .grow { flex-wrap: wrap; align-items: center; }
   .glabel { min-width: 80px; }
   .gtrack { min-width: 0; flex: 1 1 200px; }
+  #lazyRow1 > .card:first-child .gtrack { flex: 1 1 200px; min-height: 28px; }
   .modrow { flex-wrap: wrap; gap: 4px; }
   .mname  { flex: 1 1 100%; }
   .btn-sec, .btn-pri { width: 100%; justify-content: center; }
@@ -863,6 +891,26 @@ body.chat-open .content-wrap{width:100%;max-width:100%;overflow-x:hidden;transit
 body.chat-open .content-wrap .nav,body.chat-open .content-wrap .steps-band{min-width:0;flex-shrink:0}
 body.chat-open .steps-band{width:100%!important;max-width:100%!important;overflow-x:auto;-webkit-overflow-scrolling:touch;box-sizing:border-box}
 
+/* ── AI buttons ── */
+.btn-ai-section{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;
+  border-radius:20px;border:1px solid rgba(59,130,246,.3);
+  background:var(--blue-50);color:var(--blue-600);
+  font-size:11px;font-weight:700;font-family:var(--ff);cursor:pointer;
+  transition:all .15s;white-space:nowrap}
+.btn-ai-section:hover{background:var(--blue-100);border-color:var(--blue-400);box-shadow:0 0 0 2px rgba(59,130,246,.1)}
+.btn-ai-section i{font-size:12px}
+.btn-ai-icon{width:14px;height:14px;object-fit:contain;flex-shrink:0;
+  filter:brightness(0) saturate(100%) invert(24%) sepia(96%) saturate(1200%) hue-rotate(214deg) brightness(95%);}
+.btn-ai-icon-sm{width:12px;height:12px;object-fit:contain;flex-shrink:0;
+  filter:brightness(0) saturate(100%) invert(24%) sepia(96%) saturate(1200%) hue-rotate(214deg) brightness(95%);}
+.btn-ai-row{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;
+  border-radius:var(--r6);border:1px solid rgba(59,130,246,.25);
+  background:var(--blue-50);color:var(--blue-600);
+  font-size:11px;font-weight:700;font-family:var(--ff);cursor:pointer;
+  transition:all .15s;white-space:nowrap}
+.btn-ai-row:hover{background:var(--blue-100);border-color:var(--blue-500)}
+.btn-ai-row i{font-size:11px}
+
 </style>
 </head>
 <body>
@@ -935,63 +983,16 @@ body.chat-open .steps-band{width:100%!important;max-width:100%!important;overflo
 <div class="row-label">Key Metrics</div>
 <div class="kg lazy-row" id="lazyRow0">
 
-  <!-- Gauge -->
-  <div class="card">
-    <div class="ch">
-      <div class="ct"><span class="acc acc-am"></span><i class="pi pi-chart-pie"></i> Readiness Score</div>
-    </div>
-    <div class="gauge-inner">
-      <!-- SVG arc: viewBox height is just enough for the arc + pivot, no extra room for text -->
-      <div class="gauge-svg-inner">
-        <svg viewBox="0 0 170 100" width="170" height="100">
-          <defs>
-            <!-- Lara: misma progresión 300→500→800; verdes levemente desaturados -->
-            <linearGradient id="ag" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%"   stop-color="var(--red-200)"/>
-              <stop offset="10%"  stop-color="var(--yellow-500)"/>
-              <stop offset="38%"  stop-color="color-mix(in srgb, var(--green-300) 88%, var(--gray-400) 12%)"/>
-              <stop offset="72%"  stop-color="color-mix(in srgb, var(--green-500) 88%, var(--gray-400) 12%)"/>
-              <stop offset="100%" stop-color="color-mix(in srgb, var(--green-800) 90%, var(--gray-500) 10%)"/>
-            </linearGradient>
-          </defs>
-          <!-- Track arc — semicircle from left to right, apex at top -->
-          <path d="M 18 92 A 67 67 0 0 1 152 92"
-            fill="none" stroke="var(--surface-200)" stroke-width="13" stroke-linecap="round"/>
-          <!-- Active arc (8/10 → 80% of 180°) -->
-          <!-- Path length ≈ π·67 ≈ 211; 20% remaining: 211×0.2 ≈ 42 -->
-          <path d="M 18 92 A 67 67 0 0 1 152 92"
-            fill="none" stroke="url(#ag)" stroke-width="13" stroke-linecap="round"
-            stroke-dasharray="211" stroke-dashoffset="42"/>
-          <!-- Scale markers -->
-          <text x="5"   y="97" font-size="9" fill="var(--surface-500)" font-family="Roboto,sans-serif" text-anchor="middle">1</text>
-          <text x="85"  y="10" font-size="9" fill="var(--surface-500)" font-family="Roboto,sans-serif" text-anchor="middle">5</text>
-          <text x="165" y="97" font-size="9" fill="var(--surface-500)" font-family="Roboto,sans-serif" text-anchor="middle">10</text>
-          <!-- Needle: pivot=(85,92), 8/10 → angle from +x axis = 180°−144° = 36° -->
-          <line x1="85" y1="92" x2="129.5" y2="59.7"
-            stroke="color-mix(in srgb, var(--green-600) 88%, var(--gray-400) 12%)" stroke-width="2.5" stroke-linecap="round"/>
-          <!-- Pivot cap -->
-          <circle cx="85" cy="92" r="7" fill="var(--surface-0)" stroke="var(--surface-200)" stroke-width="2"/>
-          <circle cx="85" cy="92" r="3.5" fill="color-mix(in srgb, var(--green-600) 88%, var(--gray-400) 12%)"/>
-        </svg>
-      </div>
-
-      <!-- Score: completely outside & below SVG — zero overlap guaranteed -->
-      <div class="g-score-row">
-        <div>
-          <span class="g-num" id="gnum">8.0</span><span class="g-denom">&thinsp;/10</span>
-        </div>
-        <div class="g-chip" id="gchip" style="background:var(--gn50);border-color:rgba(34,197,94,.3);color:var(--gn600);"><i class="pi pi-check-circle"></i> STRONG READINESS</div>
-        <div class="g-hint">Adjusts with Scope Scrubbing</div>
-      </div>
-    </div>
-  </div>
 
   <!-- KPI Total Inventory -->
   <div class="card kc">
-    <div class="klabel" style="color:var(--s600);"><i class="pi pi-database" style="color:var(--s400);"></i> Total Inventory</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div class="klabel" style="color:var(--s600);"><i class="pi pi-database" style="color:var(--s400);"></i> Total Inventory</div>
+      <button class="btn-ai-section" onclick="askAiForSection('Total Inventory')"><img src="icon-lightbulb.svg" class="btn-ai-icon" alt=""> Ask AI</button>
+    </div>
     <div>
       <div class="knum" style="color:var(--s800);">1,847</div>
-      <div class="kdesc">objects detected in source environment</div>
+      <div class="kdesc">artifacts detected in source environment</div>
     </div>
     <div class="krows">
       <div class="krow"><span style="display:flex;align-items:center;gap:4px;"><i class="pi pi-table" style="font-size:11px;color:var(--blue-400);"></i>Tables</span><span style="color:var(--blue-600);">1,204</span></div>
@@ -1005,48 +1006,31 @@ body.chat-open .steps-band{width:100%!important;max-width:100%!important;overflo
 
   <!-- KPI Customization Footprint -->
   <div class="card kc">
-    <div class="klabel" style="color:var(--s600);"><i class="pi pi-sliders-h" style="color:var(--s400);"></i> Customization Footprint</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div class="klabel" style="color:var(--s600);"><i class="pi pi-sliders-h" style="color:var(--s400);"></i> Customization Footprint</div>
+      <button class="btn-ai-section" onclick="askAiForSection('Customization Footprint')"><img src="icon-lightbulb.svg" class="btn-ai-icon" alt=""> Ask AI</button>
+    </div>
     <div>
       <div class="knum" style="color:var(--s800);">38<span style="font-size:18px;font-weight:400;">%</span></div>
-      <div class="kdesc">objects outside BY standard</div>
+      <div class="kdesc">artifacts outside BY standard</div>
     </div>
     <div class="krows">
       <div class="krow"><span style="display:flex;align-items:center;gap:4px;"><i class="pi pi-wrench" style="font-size:11px;color:var(--am400);"></i>Custom Logic</span><span class="sbadge sb-hi">HIGH</span></div>
       <div class="kbar"><div class="kbar-f" style="width:38%;background:var(--am400);"></div></div>
       <div class="krow"><span style="display:flex;align-items:center;gap:4px;"><i class="pi pi-check-circle" style="font-size:11px;color:var(--gn400);"></i>Standard BY</span><span style="color:var(--s600);font-weight:700;">62%</span></div>
       <div class="kbar"><div class="kbar-f" style="width:62%;background:var(--gn400);"></div></div>
-      <div style="padding:7px 10px;background:var(--am50);border-radius:6px;border:1px solid rgba(245,158,11,.2);margin-top:4px;">
-        <div style="font-size:11px;font-weight:700;color:var(--am700);display:flex;align-items:center;gap:5px;">
-          <i class="pi pi-info-circle"></i> 700 objects require HITL evaluation
+      <div style="padding:7px 10px;background:#fffbeb;border-radius:6px;border:1px solid rgba(245,158,11,.2);margin-top:4px;">
+        <div style="font-size:11px;font-weight:700;color:#b45309;display:flex;align-items:center;gap:5px;">
+          <i class="pi pi-info-circle"></i> 700 artifacts require HITL evaluation
         </div>
       </div>
     </div>
   </div>
 
-  <!-- KPI Projected Effort -->
-  <div class="card kc">
-    <div class="klabel" style="color:var(--s600);"><i class="pi pi-clock" style="color:var(--s400);"></i> Projected Migration Effort</div>
-    <div>
-      <div class="knum g">14<span style="font-size:16px;font-weight:500;"> wks</span></div>
-      <div class="kdesc" style="color:var(--gn600);font-weight:700;display:flex;align-items:center;gap:4px;"><i class="pi pi-bolt" style="font-size:11px;"></i> with ASCEND</div>
-    </div>
-    <div class="cmp-row">
-      <div class="cmp">
-        <div class="cmp-l"><i class="pi pi-times-circle" style="color:var(--s400);margin-right:2px;font-size:10px;"></i>Traditional</div>
-        <div class="cmp-v" style="color:var(--s500);">24w</div>
-      </div>
-      <div class="cmp" style="background:var(--gn50);border-color:rgba(34,197,94,.2);">
-        <div class="cmp-l"><i class="pi pi-bolt" style="color:var(--blue-500);margin-right:2px;font-size:10px;"></i>ASCEND</div>
-        <div class="cmp-v" style="color:var(--gn600);">14w</div>
-        <div class="cmp-save"><i class="pi pi-arrow-circle-down"></i> 42% faster</div>
-      </div>
-    </div>
-  </div>
 </div><!-- /kg -->
 
-<!-- ── GANTT + SCOPE ── -->
-<div class="row-label">Project Timeline &amp; Scope</div>
-<div class="g2 lazy-row" id="lazyRow1">
+<!-- ── GANTT + SCOPE (removed) ── -->
+<div class="g2 lazy-row" id="lazyRow1" style="display:none;">
 
   <!-- Gantt -->
   <div class="card">
@@ -1131,39 +1115,39 @@ body.chat-open .steps-band{width:100%!important;max-width:100%!important;overflo
         </div>
         <div class="sw" id="goldSw"></div>
       </button>
-      <div class="smod-label"><i class="pi pi-list"></i> Modules in Scope</div>
+      <div class="smod-label"><i class="pi pi-list"></i> Functional Groups in Scope</div>
       <div class="modrow">
         <div class="mod-l">
           <div class="pchk on mod-cb" data-wks="3.5"></div>
-          <div><div class="mname"><i class="pi pi-box"></i> Inventory</div><div class="mcnt">312 objects · 18 custom</div></div>
+          <div><div class="mname"><i class="pi pi-box"></i> Inventory</div><div class="mcnt">312 artifacts · 18 custom</div></div>
         </div>
         <div class="mod-r"><span class="mwks">3.5 wks</span><span class="sbadge sb-me">MED</span></div>
       </div>
       <div class="modrow">
         <div class="mod-l">
           <div class="pchk on mod-cb" data-wks="4.5"></div>
-          <div><div class="mname"><i class="pi pi-truck"></i> Shipping</div><div class="mcnt">428 objects · 41 custom</div></div>
+          <div><div class="mname"><i class="pi pi-truck"></i> Shipping</div><div class="mcnt">428 artifacts · 41 custom</div></div>
         </div>
         <div class="mod-r"><span class="mwks">4.5 wks</span><span class="sbadge sb-hi">HIGH</span></div>
       </div>
       <div class="modrow">
         <div class="mod-l">
           <div class="pchk on mod-cb" data-wks="2.5"></div>
-          <div><div class="mname"><i class="pi pi-wave-pulse"></i> Wave Management</div><div class="mcnt">196 objects · 12 custom</div></div>
+          <div><div class="mname"><i class="pi pi-wave-pulse"></i> Wave Management</div><div class="mcnt">196 artifacts · 12 custom</div></div>
         </div>
         <div class="mod-r"><span class="mwks">2.5 wks</span><span class="sbadge sb-lo">LOW</span></div>
       </div>
       <div class="modrow">
         <div class="mod-l">
           <div class="pchk on mod-cb" data-wks="3.5"></div>
-          <div><div class="mname"><i class="pi pi-users"></i> Labor Management</div><div class="mcnt">158 objects · 29 custom</div></div>
+          <div><div class="mname"><i class="pi pi-users"></i> Labor Management</div><div class="mcnt">158 artifacts · 29 custom</div></div>
         </div>
         <div class="mod-r"><span class="mwks">3.5 wks</span><span class="sbadge sb-me">MED</span></div>
       </div>
       <div class="stotal">
         <div>
           <div class="stl" style="font-size:13px;display:flex;align-items:center;gap:6px;"><i class="pi pi-clock" style="font-size:12px;color:var(--blue-500);margin-right:4px;"></i>Total Estimated Effort</div>
-          <div class="sts">Uncheck modules to reduce effort and time</div>
+          <div class="sts">Uncheck functional groups to reduce effort and time</div>
         </div>
         <div class="stv" id="scopeTotal">14 wks</div>
       </div>
@@ -1173,21 +1157,25 @@ body.chat-open .steps-band{width:100%!important;max-width:100%!important;overflo
 
 <!-- ── DATA GRID ── -->
 <div class="row-label">Delta Analysis · Migration Paths</div>
-<div class="card lazy-row" id="lazyRow2">
+<div class="bg4 lazy-row" id="lazyRow2">
+<div class="card">
   <div class="ch">
     <div class="ct"><span class="acc acc-pu"></span><i class="pi pi-table"></i> Delta Analysis · Migration Paths</div>
-    <span style="font-size:10px;font-weight:800;color:var(--s400);letter-spacing:.4px;">1,204 TABLES ANALYZED</span>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span style="font-size:10px;font-weight:800;color:var(--s400);letter-spacing:.4px;">1,204 TABLES ANALYZED</span>
+      <button class="btn-ai-section" onclick="askAiForSection('Delta Analysis')"><img src="icon-lightbulb.svg" class="btn-ai-icon" alt=""> Ask AI</button>
+    </div>
   </div>
   <div class="tabs">
     <div class="tab on"><i class="pi pi-database"></i> Core Setup <span class="tbadge">63</span></div>
     <div class="tab"><i class="pi pi-code"></i> Custom Logic <span class="tbadge">388</span></div>
-    <div class="tab"><i class="pi pi-list"></i> All Objects <span class="tbadge">1,847</span></div>
+    <div class="tab"><i class="pi pi-list"></i> All Artifacts <span class="tbadge">1,847</span></div>
     <div class="tab"><i class="pi pi-ban"></i> Excluded <span class="tbadge">124</span></div>
   </div>
   <div class="fbar">
     <div class="pinpw">
       <i class="pi pi-search"></i>
-      <input class="pinp" type="text" placeholder="Search object, table, module...">
+      <input class="pinp" type="text" placeholder="Search artifact, table, functional group...">
     </div>
     <select class="psel"><option>Migration Path: All</option><option>API</option><option>MOCA</option><option>Manual</option></select>
     <select class="psel"><option>AI Rec: All</option><option>Refactor</option><option>As-Is</option><option>Deprecate</option></select>
@@ -1202,21 +1190,19 @@ body.chat-open .steps-band{width:100%!important;max-width:100%!important;overflo
   <div class="pt-wrap"><table class="pt">
     <thead>
       <tr>
-        <th style="width:38px;"></th>
-        <th>Object / Table <i class="pi pi-sort-alt"></i></th>
-        <th>Module</th>
+        <th>Artifact / Table <i class="pi pi-sort-alt"></i></th>
+        <th>Functional Group</th>
         <th>Type</th>
         <th>Delta <i class="pi pi-sort-alt"></i></th>
         <th>Migration Path <i class="pi pi-sort-alt"></i></th>
         <th>AI Recommendation</th>
         <th>Decision Tag</th>
         <th style="text-align:center;">Notes</th>
-        <th style="text-align:center;">HITL</th>
+        <th style="text-align:center;">Ask AI</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><div class="pchk on" onclick="this.classList.toggle('on')"></div></td>
         <td><div class="oname">LOCN_HDR</div><div class="otype"><i class="pi pi-table" style="font-size:9px;"></i> Config Table</div></td>
         <td><span class="mtag"><i class="pi pi-box"></i> Inventory</span></td>
         <td style="font-size:11px;color:var(--s400);font-weight:700;">Config Table</td>
@@ -1225,10 +1211,9 @@ body.chat-open .steps-band{width:100%!important;max-width:100%!important;overflo
         <td><span class="ab ab-asi"><i class="pi pi-check"></i> As-Is</span></td>
         <td><span class="dtag dt-std"><i class="pi pi-check-circle"></i> Standard Replace</span></td>
         <td style="text-align:center;"><button class="ico-btn"><i class="pi pi-comment"></i></button></td>
-        <td style="text-align:center;"><div class="pchk on" onclick="this.classList.toggle('on')" style="margin:0 auto;"></div></td>
+        <td style="text-align:center;"><button class="btn-ai-row" onclick="askAiForRow('LOCN_HDR')"><img src="icon-lightbulb.svg" class="btn-ai-icon-sm" alt=""> Ask AI</button></td>
       </tr>
       <tr>
-        <td><div class="pchk on" onclick="this.classList.toggle('on')"></div></td>
         <td><div class="oname">SHIP_HDR_CUSTOM</div><div class="otype"><i class="pi pi-code" style="font-size:9px;color:var(--am500);"></i> Trigger LP</div></td>
         <td><span class="mtag" style="background:rgba(251,191,36,.1);color:var(--am700);border-color:rgba(251,191,36,.3);"><i class="pi pi-truck"></i> Shipping</span></td>
         <td style="font-size:11px;color:var(--s500);font-weight:600;">Trigger LP</td>
@@ -1237,10 +1222,9 @@ body.chat-open .steps-band{width:100%!important;max-width:100%!important;overflo
         <td><span class="ab ab-ref"><i class="pi pi-refresh"></i> Refactor</span></td>
         <td><span class="dtag dt-leg"><i class="pi pi-history"></i> Legacy Code</span></td>
         <td style="text-align:center;"><button class="ico-btn noted"><i class="pi pi-comment"></i></button></td>
-        <td style="text-align:center;"><div class="pchk on" onclick="this.classList.toggle('on')" style="margin:0 auto;"></div></td>
+        <td style="text-align:center;"><button class="btn-ai-row" onclick="askAiForRow('SHIP_HDR_CUSTOM')"><img src="icon-lightbulb.svg" class="btn-ai-icon-sm" alt=""> Ask AI</button></td>
       </tr>
       <tr style="opacity:.72;">
-        <td><div class="pchk" onclick="this.classList.toggle('on')"></div></td>
         <td><div class="oname">WV_PICK_OBSOLETE_V2</div><div class="otype"><i class="pi pi-code" style="font-size:9px;color:var(--rd500);"></i> Trigger LP</div></td>
         <td><span class="mtag" style="background:rgba(96,165,250,.08);color:var(--blue-600);border-color:var(--blue-100);"><i class="pi pi-wave-pulse"></i> Wave</span></td>
         <td style="font-size:11px;color:var(--s500);font-weight:600;">Trigger LP</td>
@@ -1249,10 +1233,9 @@ body.chat-open .steps-band{width:100%!important;max-width:100%!important;overflo
         <td><span class="ab ab-dep"><i class="pi pi-times-circle"></i> Deprecate</span></td>
         <td><span class="dtag dt-oos"><i class="pi pi-ban"></i> Out of Scope</span></td>
         <td style="text-align:center;"><button class="ico-btn noted"><i class="pi pi-comment"></i></button></td>
-        <td style="text-align:center;"><div class="pchk" onclick="this.classList.toggle('on')" style="margin:0 auto;"></div></td>
+        <td style="text-align:center;"><button class="btn-ai-row" onclick="askAiForRow('WV_PICK_OBSOLETE_V2')"><img src="icon-lightbulb.svg" class="btn-ai-icon-sm" alt=""> Ask AI</button></td>
       </tr>
       <tr>
-        <td><div class="pchk on" onclick="this.classList.toggle('on')"></div></td>
         <td><div class="oname">LBR_TASK_MGMT</div><div class="otype"><i class="pi pi-table" style="font-size:9px;"></i> Config Table</div></td>
         <td><span class="mtag" style="background:rgba(34,197,94,.08);color:var(--gn700);border-color:rgba(34,197,94,.2);"><i class="pi pi-users"></i> Labor</span></td>
         <td style="font-size:11px;color:var(--s400);font-weight:700;">Config Table</td>
@@ -1261,10 +1244,9 @@ body.chat-open .steps-band{width:100%!important;max-width:100%!important;overflo
         <td><span class="ab ab-asi"><i class="pi pi-check"></i> As-Is</span></td>
         <td><span class="dtag dt-std"><i class="pi pi-check-circle"></i> Standard Replace</span></td>
         <td style="text-align:center;"><button class="ico-btn"><i class="pi pi-comment"></i></button></td>
-        <td style="text-align:center;"><div class="pchk on" onclick="this.classList.toggle('on')" style="margin:0 auto;"></div></td>
+        <td style="text-align:center;"><button class="btn-ai-row" onclick="askAiForRow('LBR_TASK_MGMT')"><img src="icon-lightbulb.svg" class="btn-ai-icon-sm" alt=""> Ask AI</button></td>
       </tr>
       <tr>
-        <td><div class="pchk on" onclick="this.classList.toggle('on')"></div></td>
         <td><div class="oname">SCREEN_RCPT_CUSTOM</div><div class="otype"><i class="pi pi-window-maximize" style="font-size:9px;color:var(--or500);"></i> Custom Screen</div></td>
         <td><span class="mtag"><i class="pi pi-box"></i> Inventory</span></td>
         <td style="font-size:11px;color:var(--s500);font-weight:600;">Custom Screen</td>
@@ -1273,10 +1255,9 @@ body.chat-open .steps-band{width:100%!important;max-width:100%!important;overflo
         <td><span class="ab ab-ref"><i class="pi pi-refresh"></i> Refactor</span></td>
         <td><span class="dtag dt-leg"><i class="pi pi-history"></i> Legacy Code</span></td>
         <td style="text-align:center;"><button class="ico-btn"><i class="pi pi-comment"></i></button></td>
-        <td style="text-align:center;"><div class="pchk on" onclick="this.classList.toggle('on')" style="margin:0 auto;"></div></td>
+        <td style="text-align:center;"><button class="btn-ai-row" onclick="askAiForRow('SCREEN_RCPT_CUSTOM')"><img src="icon-lightbulb.svg" class="btn-ai-icon-sm" alt=""> Ask AI</button></td>
       </tr>
       <tr>
-        <td><div class="pchk on" onclick="this.classList.toggle('on')"></div></td>
         <td><div class="oname">PICK_ZONE_CONFIG</div><div class="otype"><i class="pi pi-table" style="font-size:9px;"></i> Config Table</div></td>
         <td><span class="mtag" style="background:rgba(96,165,250,.08);color:var(--blue-600);border-color:var(--blue-100);"><i class="pi pi-wave-pulse"></i> Wave</span></td>
         <td style="font-size:11px;color:var(--s400);font-weight:700;">Config Table</td>
@@ -1285,7 +1266,7 @@ body.chat-open .steps-band{width:100%!important;max-width:100%!important;overflo
         <td><span class="ab ab-asi"><i class="pi pi-check"></i> As-Is</span></td>
         <td><span class="dtag dt-std"><i class="pi pi-check-circle"></i> Standard Replace</span></td>
         <td style="text-align:center;"><button class="ico-btn"><i class="pi pi-comment"></i></button></td>
-        <td style="text-align:center;"><div class="pchk on" onclick="this.classList.toggle('on')" style="margin:0 auto;"></div></td>
+        <td style="text-align:center;"><button class="btn-ai-row" onclick="askAiForRow('PICK_ZONE_CONFIG')"><img src="icon-lightbulb.svg" class="btn-ai-icon-sm" alt=""> Ask AI</button></td>
       </tr>
     </tbody>
   </table>
@@ -1301,59 +1282,64 @@ body.chat-open .steps-band{width:100%!important;max-width:100%!important;overflo
       <button class="pgb"><i class="pi pi-angle-right"></i></button>
     </div>
   </div>
-</div><!-- /data grid -->
+  </div><!-- /pt-wrap -->
+</div><!-- /delta card -->
 
-<!-- ── COLLAB + CTA ── -->
-<div class="row-label">Collaboration &amp; Governance</div>
-<div class="bg4 lazy-row" id="lazyRow3">
-  <!-- Annotations -->
-  <div class="card">
-    <div class="ch">
-      <div class="ct"><span class="acc acc-g"></span><i class="pi pi-comments"></i> Contextual Annotations · HITL Collaboration</div>
-      <button class="btn-o"><i class="pi pi-plus-circle"></i> Add Note</button>
-    </div>
-    <div class="ann-body">
-      <div class="ann ann-am">
-        <div class="ann-meta"><i class="pi pi-user"></i> J. Ramírez · Senior Consultant · 2h ago · <span class="ann-obj">WV_PICK_OBSOLETE_V2</span></div>
-        <div class="ann-txt">Excluded — obsolete logic. The process was replaced in BY 2022 R2 by native wave allocation. Do not migrate.</div>
-        <div class="ann-foot"><span class="dtag dt-oos"><i class="pi pi-ban"></i> Out of Scope</span></div>
-      </div>
-      <div class="ann ann-rd">
-        <div class="ann-meta"><i class="pi pi-user"></i> M. Torres · Arch. Lead · 45 min ago · <span class="ann-obj">SHIP_HDR_CUSTOM</span></div>
-        <div class="ann-txt">MOCA review required — no API endpoint for client custom fields. Estimated +3 additional days.</div>
-        <div class="ann-foot"><span class="dtag dt-leg"><i class="pi pi-history"></i> Legacy Code</span></div>
-      </div>
-      <div class="ann ann-b">
-        <div class="ann-meta"><i class="pi pi-microchip-ai"></i> ASCEND System · AI · Auto-detected · <span class="ann-obj">SCREEN_RCPT_CUSTOM</span></div>
-        <div class="ann-txt">Screen detected without BY standard equivalent. Manual mapping with functional team recommended before executing.</div>
-        <div class="ann-foot"><span class="dtag" style="color:var(--blue-600);border-color:var(--blue-200);background:var(--blue-50);border:1px solid var(--blue-200);"><i class="pi pi-microchip-ai"></i> AI Flagged</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CTA -->
+  <!-- Governance Outputs -->
   <div class="card">
     <div class="ch">
       <div class="ct"><span class="acc acc-b"></span><i class="pi pi-shield"></i> Governance · Outputs</div>
+      <button class="btn-ai-section" onclick="askAiForSection('Governance')"><img src="icon-lightbulb.svg" class="btn-ai-icon" alt=""> Ask AI</button>
     </div>
-    <div class="cta-body">
+    <div class="cta-body" style="display:flex;flex-direction:column;flex:1;gap:0;padding:14px 16px;">
+
+      <!-- Scope Summary -->
       <div class="cta-lbl"><i class="pi pi-chart-bar"></i> Agreed Scope Summary</div>
-      <div class="cta-row"><span class="cta-k"><i class="pi pi-database"></i> Objects in scope</span><span class="cta-v" style="color:var(--blue-600);">63 / 1,847</span></div>
-      <div class="cta-row"><span class="cta-k"><i class="pi pi-gauge"></i> Readiness Score</span><span class="cta-v" style="color:var(--gn600);">8.0 / 10</span></div>
-      <div class="cta-row"><span class="cta-k"><i class="pi pi-clock"></i> Estimated effort</span><span class="cta-v" style="color:var(--gn600);">14 wks</span></div>
-      <div class="cta-row"><span class="cta-k"><i class="pi pi-comments"></i> HITL Annotations</span><span class="cta-v" style="color:var(--s600);">3 active</span></div>
-      <div class="div"></div>
-      <div class="cta-lbl" style="margin-top:2px;margin-bottom:8px;"><i class="pi pi-file-export" style="font-size:11px;"></i> Export</div><button class="btn-sec"><i class="pi pi-file-pdf"></i> Download Blueprint PDF</button>
-      <button class="btn-sec"><i class="pi pi-file-export"></i> Export as PowerPoint</button>
-      <div class="div"></div>
-      <div class="div"></div><div class="cta-lbl" style="margin-bottom:8px;"><i class="pi pi-play-circle" style="font-size:11px;"></i> Next Step</div><button class="btn-pri">
-        <i class="pi pi-play-circle"></i>
-        Start Structural Analysis
-      </button>
-      <div class="cta-stage-chip">
-        <i class="pi pi-info-circle"></i>
-        Stage 3 · Heavy Lifting · Requires HITL Approval
+      <div class="cta-row"><span class="cta-k"><i class="pi pi-database"></i> Artifacts in scope</span><span class="cta-v" style="color:var(--blue-600);">63 / 1,847</span></div>
+      <div class="cta-row"><span class="cta-k"><i class="pi pi-code"></i> Custom logic items</span><span class="cta-v" style="color:var(--am600);">388</span></div>
+      <div class="cta-row"><span class="cta-k"><i class="pi pi-ban"></i> Excluded artifacts</span><span class="cta-v" style="color:var(--s400);">124</span></div>
+
+      <div style="flex:1;min-height:10px;"></div>
+
+      <!-- Migration Path Breakdown -->
+      <div class="cta-lbl"><i class="pi pi-directions"></i> Migration Path Breakdown</div>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--s600);margin-bottom:3px;">
+            <span>API</span><span style="color:var(--blue-600);">31 artifacts</span>
+          </div>
+          <div style="height:4px;background:var(--s100);border-radius:2px;"><div style="height:4px;background:var(--blue-500);border-radius:2px;width:49%;"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--s600);margin-bottom:3px;">
+            <span>MOCA</span><span style="color:var(--am600);">21 artifacts</span>
+          </div>
+          <div style="height:4px;background:var(--s100);border-radius:2px;"><div style="height:4px;background:var(--am500);border-radius:2px;width:33%;"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--s600);margin-bottom:3px;">
+            <span>Manual UI</span><span style="color:var(--or600);">11 artifacts</span>
+          </div>
+          <div style="height:4px;background:var(--s100);border-radius:2px;"><div style="height:4px;background:var(--or500);border-radius:2px;width:17%;"></div></div>
+        </div>
       </div>
+
+      <div style="flex:1;min-height:10px;"></div>
+
+      <!-- Governance Approvals -->
+      <div class="cta-lbl"><i class="pi pi-verified"></i> Governance Approvals</div>
+      <div class="cta-row"><span class="cta-k"><i class="pi pi-flag" style="color:var(--s400);"></i> Stage gate</span><span style="font-size:10px;font-weight:800;color:var(--am600);background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.3);border-radius:4px;padding:2px 7px;">PENDING</span></div>
+      <div class="cta-row"><span class="cta-k"><i class="pi pi-user-edit" style="color:var(--s400);"></i> HITL sign-off</span><span style="font-size:10px;font-weight:800;color:var(--blue-600);background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.3);border-radius:4px;padding:2px 7px;">IN REVIEW</span></div>
+      <div class="cta-row"><span class="cta-k"><i class="pi pi-check-square" style="color:var(--s400);"></i> PM approval</span><span style="font-size:10px;font-weight:800;color:var(--s400);background:var(--s100);border:1px solid var(--s200);border-radius:4px;padding:2px 7px;">NOT STARTED</span></div>
+
+      <div style="flex:1;min-height:10px;"></div>
+
+      <!-- Next Step anclado al fondo -->
+      <div class="div" style="margin:0 0 12px;"></div>
+      <div class="cta-lbl" style="margin-bottom:8px;"><i class="pi pi-play-circle" style="font-size:11px;"></i> Next Step</div>
+      <button class="btn-pri"><i class="pi pi-play-circle"></i> Start Structural Analysis</button>
+      <div class="cta-stage-chip" style="margin-top:8px;"><i class="pi pi-info-circle"></i> Stage 3 · Heavy Lifting · Requires HITL Approval</div>
+
     </div>
   </div>
 </div><!-- /bg4 -->
@@ -1369,9 +1355,9 @@ body.chat-open .steps-band{width:100%!important;max-width:100%!important;overflo
   </button>
   <div class="fab-ai-bubbles" id="fabAiBubbles">
     <button type="button" class="fab-bubble">Explain customization footprint</button>
-    <button type="button" class="fab-bubble">Identify objects requiring HITL</button>
-    <button type="button" class="fab-bubble">Explain readiness score</button>
-    <button type="button" class="fab-bubble">Compare ASCEND vs Traditional timeline</button>
+    <button type="button" class="fab-bubble">Identify artifacts requiring HITL</button>
+    <button type="button" class="fab-bubble">Summarize delta analysis findings</button>
+    <button type="button" class="fab-bubble">What are the highest-risk artifacts?</button>
   </div>
 </div>
 
@@ -1386,9 +1372,9 @@ body.chat-open .steps-band{width:100%!important;max-width:100%!important;overflo
   </div>
   <div class="fab-chat-actions" id="fabChatActions">
     <button type="button" class="fab-chat-action">Explain customization footprint</button>
-    <button type="button" class="fab-chat-action">Identify objects requiring HITL</button>
-    <button type="button" class="fab-chat-action">Explain readiness score</button>
-    <button type="button" class="fab-chat-action">Compare ASCEND vs Traditional timeline</button>
+    <button type="button" class="fab-chat-action">Identify artifacts requiring HITL</button>
+    <button type="button" class="fab-chat-action">Summarize delta analysis findings</button>
+    <button type="button" class="fab-chat-action">What are the highest-risk artifacts?</button>
   </div>
   <div class="fab-chat-input-wrap">
     <input type="text" class="fab-chat-input" id="fabChatInput" placeholder="Type your message…" autocomplete="off">
@@ -1406,10 +1392,6 @@ document.querySelectorAll('.tab').forEach(t=>{
 });
 /* Chips */
 document.querySelectorAll('.pchip').forEach(c=>c.addEventListener('click',()=>c.classList.toggle('on')));
-/* Gold toggle */
-document.getElementById('goldBtn').addEventListener('click',()=>document.getElementById('goldSw').classList.toggle('off'));
-/* Module checkboxes */
-document.querySelectorAll('.mod-cb').forEach(cb=>cb.addEventListener('click',()=>{cb.classList.toggle('on');recalc();}));
 /* Paginator */
 document.querySelectorAll('.pgb').forEach(b=>{
   b.addEventListener('click',function(){
@@ -1419,22 +1401,51 @@ document.querySelectorAll('.pgb').forEach(b=>{
   });
 });
 
-const BASE_WKS=14, BASE_READINESS=8;
-function recalc(){
-  const all=document.querySelectorAll('.mod-cb');
-  const on=document.querySelectorAll('.mod-cb.on');
-  const r=on.length/all.length;
-  document.getElementById('scopeTotal').textContent=Math.round(BASE_WKS*r*10)/10+' wks';
-  const score=Math.round(BASE_READINESS*r*10)/10;
-  const gnum=document.getElementById('gnum');
-  gnum.textContent=score.toFixed(1);
-  const chip=document.getElementById('gchip');
-  /* Mayor puntuación = mayor preparación */
-  if(score<3){chip.innerHTML='<i class="pi pi-exclamation-circle"></i> LOW READINESS';chip.style.cssText='background:var(--rd50);border-color:rgba(239,68,68,.3);color:var(--rd600);';gnum.style.color='var(--rd600)';}
-  else if(score<7){chip.innerHTML='<i class="pi pi-exclamation-circle"></i> MODERATE READINESS';chip.style.cssText='background:var(--am50);border-color:rgba(245,158,11,.3);color:var(--am600);';gnum.style.color='var(--am600)';}
-  else{chip.innerHTML='<i class="pi pi-check-circle"></i> STRONG READINESS';chip.style.cssText='background:var(--gn50);border-color:rgba(34,197,94,.3);color:var(--gn600);';gnum.style.color='var(--gn600)';}
+/* AI per-row and per-section helpers */
+function askAiForRow(artifactName){
+  var chat=document.getElementById('fabChat');
+  var chatMsgs=document.getElementById('fabChatMsgs');
+  var chatInput=document.getElementById('fabChatInput');
+  if(!chat||!chatMsgs)return;
+  chat.classList.add('open');
+  document.body.classList.add('chat-open');
+  var q='Tell me about artifact '+artifactName+': migration path, delta details, and AI recommendation.';
+  var msg=document.createElement('div');
+  msg.className='fab-chat-msg user';
+  msg.textContent=q;
+  chatMsgs.appendChild(msg);
+  chatMsgs.scrollTop=chatMsgs.scrollHeight;
+  setTimeout(function(){
+    var resp=document.createElement('div');
+    resp.className='fab-chat-msg bot';
+    resp.textContent='Analyzing '+artifactName+': In a live environment, this would surface the full delta record, migration path rationale, and AI recommendation for this artifact.';
+    chatMsgs.appendChild(resp);
+    chatMsgs.scrollTop=chatMsgs.scrollHeight;
+  },600);
+  if(chatInput)chatInput.focus();
 }
-recalc();
+function askAiForSection(sectionName){
+  var chat=document.getElementById('fabChat');
+  var chatMsgs=document.getElementById('fabChatMsgs');
+  var chatInput=document.getElementById('fabChatInput');
+  if(!chat||!chatMsgs)return;
+  chat.classList.add('open');
+  document.body.classList.add('chat-open');
+  var q='Explain the '+sectionName+' section and its implications for this migration assessment.';
+  var msg=document.createElement('div');
+  msg.className='fab-chat-msg user';
+  msg.textContent=q;
+  chatMsgs.appendChild(msg);
+  chatMsgs.scrollTop=chatMsgs.scrollHeight;
+  setTimeout(function(){
+    var resp=document.createElement('div');
+    resp.className='fab-chat-msg bot';
+    resp.textContent='Processing '+sectionName+' context… In a live environment, this would provide detailed AI insights for this section.';
+    chatMsgs.appendChild(resp);
+    chatMsgs.scrollTop=chatMsgs.scrollHeight;
+  },600);
+  if(chatInput)chatInput.focus();
+}
 
 // ── Hamburger menu toggle ──────────────────────────────────────────
 (function(){
