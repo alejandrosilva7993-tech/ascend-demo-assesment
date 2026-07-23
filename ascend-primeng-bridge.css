@@ -1,0 +1,103 @@
+/**
+ * ASCEND ↔ PrimeNG 17 (Lara Light Blue)
+ * Cargar DESPUÉS de theme.css + primeng.min.css y ANTES de ascend-shell.css.
+ * Los mocks usan clases DOM compatibles con PrimeNG; en Angular usar el componente real.
+ */
+
+:root {
+  /* Puente semántico ASCEND → variables Lara (theme.css) */
+  --ascend-primary: var(--primary-color, #3b82f6);
+  --ascend-primary-hover: var(--blue-700, #1d4ed8);
+  --ascend-primary-text: var(--primary-color-text, #ffffff);
+  --ascend-surface-card: var(--surface-card, var(--s0));
+  --ascend-surface-border: var(--surface-border, var(--s200));
+  --ascend-surface-hover: var(--surface-hover, var(--s50));
+  --ascend-text: var(--text-color, var(--s700));
+  --ascend-text-muted: var(--text-color-secondary, var(--s500));
+  --ascend-highlight-bg: var(--highlight-bg, var(--blue-50));
+  --ascend-focus-ring: var(--focus-ring, 0 0 0 0.2rem #bfdbfe);
+  --ascend-border-radius: var(--border-radius, var(--r6));
+  --ascend-content-padding: var(--content-padding, 1.25rem);
+
+}
+
+/* Tipografía producto: Roboto (plan ASCEND) sobre Inter del tema Lara */
+body {
+  font-family: var(--ff);
+}
+
+/* Nav / shell: bordes y superficies vía tokens PrimeNG */
+.nav {
+  border-bottom-color: var(--ascend-surface-border);
+}
+.card {
+  border-color: var(--ascend-surface-border);
+  background: var(--ascend-surface-card);
+}
+
+/* Nav: botones sin contorno (PrimeNG text) */
+.nav .p-button.p-button-text.p-button-sm,
+.nav .p-button.p-button-text.p-button-icon-only {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ascend-text-muted, var(--s600));
+}
+.nav .p-button.p-button-text.p-button-sm:not(:disabled):hover,
+.nav .p-button.p-button-text.p-button-icon-only:not(:disabled):hover {
+  background: var(--ascend-highlight-bg, var(--blue-50));
+  color: var(--ascend-primary, var(--blue-600));
+}
+.p-button .p-button-icon {
+  margin-right: 0.35rem;
+}
+.p-button.p-button-icon-only .p-button-icon {
+  margin-right: 0;
+}
+.p-button.p-button-sm .p-button-label {
+  font-weight: 700;
+}
+
+/* Steps mock — misma nomenclatura que p-steps de PrimeNG */
+.p-steps-item.active .p-steps-number {
+  border-color: var(--ascend-primary);
+  color: var(--ascend-primary);
+}
+.p-steps-item.done .p-steps-number {
+  border-color: var(--blue-300, #93c5fd);
+}
+.p-steps-item.active .p-steps-link {
+  background: var(--ascend-highlight-bg);
+}
+
+/* Checkbox mock .pchk — en app usar p-checkbox */
+.pchk.on::after {
+  font-family: primeicons;
+}
+
+/* Inputs mock — en app usar pInputText + focus ring Lara */
+.field input:focus {
+  box-shadow: var(--ascend-focus-ring);
+  border-color: var(--ascend-primary);
+}
+
+/* Mock primary buttons — alineados a p-button Lara (sin sombra de elevación) */
+.p-button.p-button-primary:not(:disabled),
+.btn-primary,.btn-pri,.btn-proceed,.btn-auth,.btn-gen,.btn-step-next,.btn-capture{
+  box-shadow:none;
+}
+.p-button.p-button-primary:not(:disabled):hover,
+.btn-primary:hover:not(:disabled),.btn-pri:hover:not(:disabled),
+.btn-proceed:hover:not(:disabled),.btn-auth:hover:not(:disabled),
+.btn-gen:hover:not(:disabled),.btn-step-next:hover:not(:disabled),
+.btn-capture:hover:not(:disabled){
+  box-shadow:none;
+}
+.p-button.p-button-primary:focus-visible,
+.btn-primary:focus-visible,.btn-pri:focus-visible,
+.btn-proceed:focus-visible,.btn-auth:focus-visible,.btn-gen:focus-visible,
+.btn-step-next:focus-visible,.btn-capture:focus-visible{
+  box-shadow:var(--ascend-focus-ring);
+}
