@@ -1,0 +1,28 @@
+/* ASCEND Design System — canonical tokens (P2/P3 reference)
+ * Producto: PrimeNG 17 Lara Light Blue + PrimeIcons. Puente Lara: ascend-primeng-bridge.css
+ * En Angular: mapear este archivo al preset del tema; no duplicar paleta fuera de PrimeNG.
+ */
+:root {
+  --blue-50:#f0f5ff;--blue-100:#dce8ff;--blue-200:#bfdbfe;--blue-300:#93c5fd;
+  --blue-400:#60a5fa;--blue-500:#3b82f6;--blue-600:#2563eb;--blue-700:#1d4ed8;--blue-800:#1e40af;
+  --s0:#ffffff;--s50:#f8fafc;--s100:#f1f5f9;--s150:#edf2f7;--s200:#e2e8f0;
+  --s300:#cbd5e1;--s400:#94a3b8;--s500:#64748b;--s600:#475569;--s700:#334155;
+  --s800:#1e293b;--s900:#0f172a;
+  --am50:#fffbf0;--am100:#fef3d0;--am400:#e8a020;--am500:#cc8800;
+  --am600:#b07300;--am700:#8f5c00;
+  --or400:#fb923c;--or500:#f97316;--or600:#ea580c;--or700:#c2410c;
+  --gn50:#f4faf6;--gn100:#e2f0e8;--gn400:#6b9e78;--gn500:#528a6a;
+  --gn600:#3a6b4f;--gn700:#2d5340;
+  --rd50:#fff4f4;--rd100:#fde0e0;--rd400:#f87171;--rd500:#d94040;--rd600:#b83030;--rd700:#942a2a;
+  --pu50:#faf5ff;--pu200:#e9d5ff;--pu400:#9e72d4;--pu500:#7c52b8;--pu700:#6b21a8;
+  --ff:'Roboto',sans-serif;
+  --fm:'Roboto',sans-serif;
+  --sh1:0 1px 2px rgba(15,23,42,.06),0 1px 3px rgba(15,23,42,.1);
+  --sh2:0 4px 6px -1px rgba(15,23,42,.07),0 2px 4px -2px rgba(15,23,42,.07);
+  --r6:6px;--r8:8px;--r12:12px;
+  --layout-max:1280px;
+  --nav-h:54px;
+  --main-pad-x:22px;
+  --main-gap:14px;
+  --section-title-gap:12px;
+}
